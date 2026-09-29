@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: ai-springboot
+  datasource:
+    url: jdbc:mysql://localhost:3306/mental_health_assistant?useSSL=false&serverTimezone=UTC&characterEncoding=utf-8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 1236
+
+#logging:
+#  level:
+#    org.example.aispringboot: debug

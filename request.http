@@ -1,0 +1,40 @@
+### 正确请求
+POST http://localhost:1236/api/user/login
+Content-Type: application/json
+
+{
+  "username": "student01",
+  "password": "123456"
+}
+
+### 错误请求
+POST http://localhost:1236/api/user/login
+Content-Type: application/json
+
+{
+  "username": "student01",
+  "password": "654321"
+}
+
+### 注册
+POST http://localhost:1236/api/user/register
+Content-Type: application/json
+
+{
+  "username": "student04",
+  "password": "123456"
+}
+
+### 登录
+POST http://localhost:1236/api/user/login
+Content-Type: application/json
+
+{
+  "username": "student01",
+  "password": "123456"
+}
+
+
+
+
+
