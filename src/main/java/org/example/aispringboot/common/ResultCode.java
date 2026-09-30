@@ -27,6 +27,7 @@ public enum ResultCode {
     ACCOUNT_SAME("6001", "用户名已存在"),
     USER_NOT_EXIST("6002", "用户不存在"),
     LOGIN_FAILED("6003", "用户名或密码错误"),
+    TODO_NOT_FOUND("6004", "待办事项不存在"),
 
     // token相关错误
     TOKEN_INVALID("A0230", "token无效"),

@@ -3,6 +3,7 @@ package org.example.aispringboot.service.impl;
 import org.example.aispringboot.DTO.command.UserLoginCommandDTO;
 import org.example.aispringboot.DTO.command.UserRegisterCommandDTO;
 import org.example.aispringboot.common.BusinessException;
+import org.example.aispringboot.common.JwtUtil;
 import org.example.aispringboot.common.ResultCode;
 import org.example.aispringboot.entity.UserEntity;
 import org.example.aispringboot.repository.UserRepository;
@@ -18,12 +19,15 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     public UserServiceImpl(
             UserRepository userRepository,
-            PasswordEncoder passwordEncoder) {
+            PasswordEncoder passwordEncoder,
+            JwtUtil jwtUtil) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
     }
 
     @Override
@@ -61,8 +65,11 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException(ResultCode.LOGIN_FAILED);
         }
 
-        String temporaryToken = "token-for-user-" + userEntity.getId();
+        String token = jwtUtil.generateToken(
+                userEntity.getId(),
+                userEntity.getUsername()
+        );
 
-        return new UserLoginResponseDTO(temporaryToken);
+        return new UserLoginResponseDTO(token);
     }
 }

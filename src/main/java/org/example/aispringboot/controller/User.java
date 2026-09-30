@@ -1,11 +1,14 @@
 package org.example.aispringboot.controller;
 
+import io.jsonwebtoken.Claims;
 import jakarta.validation.Valid;
+import jakarta.servlet.http.HttpServletRequest;
 import org.example.aispringboot.DTO.command.UserLoginCommandDTO;
 import org.example.aispringboot.DTO.command.UserRegisterCommandDTO;
 import org.example.aispringboot.DTO.response.UserLoginResponseDTO;
 import org.example.aispringboot.common.Result;
 import org.example.aispringboot.service.UserService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +30,16 @@ public class User {
 
         String message = userService.register(commandDTO);
         return Result.ok(message);
+    }
+
+    @GetMapping("/token-info")
+    public Result<String> tokenInfo(HttpServletRequest request) {
+        Claims claims = (Claims) request.getAttribute("claims");
+
+        return Result.ok(
+                "用户：" + claims.getSubject()
+                        + "，ID：" + claims.get("userId", Long.class)
+        );
     }
 
     @PostMapping("/login")

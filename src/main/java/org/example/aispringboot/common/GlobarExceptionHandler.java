@@ -1,5 +1,6 @@
 package org.example.aispringboot.common;
 
+import io.jsonwebtoken.JwtException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -21,6 +22,15 @@ public class GlobarExceptionHandler {
         return Result.error(
                 ResultCode.PARAM_INVALID.getCode(),
                 message,
+                null
+        );
+    }
+
+    @ExceptionHandler(JwtException.class)
+    public Result<String> handleJwtException(JwtException exception) {
+        return Result.error(
+                ResultCode.TOKEN_INVALID.getCode(),
+                ResultCode.TOKEN_INVALID.getMsg(),
                 null
         );
     }
